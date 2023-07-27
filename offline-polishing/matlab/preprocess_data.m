@@ -1,6 +1,6 @@
 function [F3, F2] = preprocess_data(data, varargin)
 
-    if nargin > 2
+    if nargin > 1
         plotting = varargin{1};
     else
         plotting = 2;
