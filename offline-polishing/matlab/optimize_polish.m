@@ -1,25 +1,21 @@
-clear r
-clear dr
+%% Find the optimal solution for input data of the dataset
 
-%%
-% frequency
+% change the input file to view another solution
+load_data
+
+%% Optimization Problem
+% frequency of the dataset
 dt = 1/50; 
 
-%%%% smoothing the data
+%%%% You can smooth the data (optional)
 data = F2{1}';
 % data(:,1) = smooth(data(:,1),10);
 % data(:,2) = smooth(data(:,2),10);
-% sometimes you need to smooth with more datapoints
 
 %%% ------------------ ATTENTION --------------------- %%%
 %%% sometimes you need to flip the data (why?)
 % data(:,1) = flip(data(:,1));
 % data(:,2) = flip(data(:,2));
-
-% %%% ------------------ ATTENTION --------------------- %%%
-% %%% -- IN CASE YOU ARE RUNNING EXAMPLE TRAJECTORIES -- %%%
-% %%% running perfect data
-% data = CircleUnit{1}';
 
 Xdata = data(1:end-1,:);
 Xvel = diff(data) ./ dt;
@@ -37,8 +33,7 @@ dr(:,2) = (Xvel(:,2).*Xdata(:,1) - Xdata(:,2).*Xvel(:,1)) ./ sum(Xdata(:,1:2).^2
 xdot_r1 = Xvel(:,1); %dr(:,1).*cos(r(:,2)) - r(:,1).*dr(:,2).*sin(r(:,2));
 xdot_r2 = Xvel(:,2); %dr(:,1).*sin(r(:,2)) + r(:,1).*dr(:,2).*cos(r(:,2));
 
-plot(xdot_r1, xdot_r2, '.r');
-
+% Initial parameters
 % alpha, omega, radius, a, b theta
 p0 = [10, 1, 0.001, 0.001, 0.1, 1, 0, 0];
 
@@ -73,17 +68,10 @@ beq = [];
 lb = [ 10,  -2*pi, 0.0001,  1,     1,   -2*pi, -2, -2];
 ub = [ 100,  2*pi,   0.09,   inf,  inf,   2*pi,  2,  2];
 
+% compute the solver time
 tic
 popt = fmincon(objective,p0,A,b,Aeq,beq,lb,ub);
 toc
-
-% try out our initial values p0
-hold on;
-plot(xdot_d1(p0), xdot_d2(p0), '.b');
-plot(xdot_d1(popt), xdot_d2(popt), '.g');
-legend('measured', 'initial predicted', 'optimal predicted')
-ylabel('y')
-xlabel('x')
 
 disp(['Final Objective: ' num2str(objective(popt))])
 disp('Optimal Parameters:');
@@ -91,6 +79,7 @@ disp([num2str(char(945)) 9 num2str(char(969)) 9 'r0' 9 'a' 9 'b' 9 num2str(char(
 disp([num2str(round(popt(1),3)) 9 num2str(round(popt(2),3)) 9 num2str(round(popt(3),3)) ...
     9 num2str(round(popt(4),3)) 9 num2str(round(popt(5),3)) 9 num2str(round(popt(6),3)) ...
     9 num2str(round(popt(7),3)) 9 num2str(round(popt(8),3))]);
+
 %% Plotting the full ellipse with all parameters
 
 fig = figure('name','Streamlines');
@@ -102,7 +91,7 @@ plot_space = 0.1;      % How zoom out you want the plot to be?
 
 [x, y] = meshgrid(xgrid-popt(3)-plot_space:0.01:xgrid+popt(3)+plot_space, ygrid-popt(3)-plot_space:0.01:ygrid+popt(3)+plot_space);
 
-% Limit Cycle - circle
+% Limit Cycle
 % define variables
 alpha = popt(1);
 r0 = popt(3);        % radius = sqrt(r0)
@@ -130,86 +119,3 @@ axis([xgrid-popt(3), xgrid+popt(3), ygrid-popt(3), ygrid+popt(3)]);
 
 hold on;
 plot(data(:,1), data(:,2), '.r');
-
-%% For adding to paper
-
-fig.Units               = 'centimeters';
-fig.Position(3)         = 8;
-fig.Position(4)         = 6;
-
-set(fig.Children, ...
-    'FontName',     'Times', ...
-    'FontSize',     9);
-set(gca,'LooseInset', max(get(gca,'TightInset'), 0.02))
-
-%% plot optimal polishing motion
-
-alpha = popt(1);
-r0 = popt(3);        % radius = sqrt(r0)
-omega = popt(2);
-theta = popt(6);      % angle rotation (radians)
-a = popt(4);         % scaling coefficients
-b = popt(5);
-x1 = -popt(7);        % translation coefficients
-x2 = -popt(8);      % radius = sqrt(r0)
-
-xtest = data(1,1);
-ytest = data(1,2);
-
-figure()
-xunit = [];
-yunit = [];
-
-for i=1:300
-    hold on;
-    
-    plot(xtest,ytest, '.r');    
-
-    % diffeomorphism
-    x_hat = a.*cos(theta).*(xtest - x1) + a.*sin(theta).*(ytest - x2); 
-    y_hat = -b.*sin(theta).*(xtest - x1) + b.*cos(theta).*(ytest - x2);
-
-    r_ = sqrt(x_hat.^2 + y_hat.^2);
-    phi = atan2(y_hat,x_hat);
-
-    r_dot = -1*alpha*(r_-r0);
-    phi_dot = omega; % rads per sec
-
-    % Limit Cycle Dynamical System in Polar Coordinates
-    xd_hat =  r_dot.*cos(phi) - r_.*phi_dot.*sin(phi);
-    yd_hat =  r_dot.*sin(phi) + r_.*phi_dot.*cos(phi);
-
-    % Dynamical System diffeomorphism (transformation matrix)
-    xd = cos(theta).*a^(-1).*xd_hat - sin(theta).*b^(-1).*yd_hat;
-    yd = sin(theta).*a^(-1).*xd_hat + cos(theta).*b^(-1).*yd_hat;
-    
-    xtest = xtest + xd*(1/50);
-    ytest = ytest + yd*(1/50);
-    xunit = [xunit, xtest];
-    yunit = [yunit, ytest];
-    
-end
-
-CircleUnit{1} = [xunit; yunit];
-
-
-%% find closest points
-i = 1;
-gen_data = CircleUnit{1}';
-real_data = data;
-
-k_nearest = [];
-dist_nearest = [];
-for i=1:length(data)
-    
-    % remove repeating closest numbers (found most but not all)
-    [k,dist] = dsearchn(gen_data, real_data(i:end,:));
-    gen_data(k(1),:) = [];
-    
-    k_nearest = [k_nearest, k(1) + i-1];
-    dist_nearest = [dist_nearest, dist(1)];
-    
-end
-
-% compute the mean square root
-y = rms(dist_nearest)
