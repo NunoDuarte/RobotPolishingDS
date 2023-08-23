@@ -8,19 +8,19 @@ IEEE Humanoids 2023 (under submission)
 Add videos 
 
 ## Dependencies 
-for python on offline data
+- for python on offline data
 ```
 pip install scipy matplotlib
 ```
-for python with ROS to track hand in real-time
+- for python with ROS to track hand in real-time
 ```
 pip install scipy matplotlib rospkg
 ```
-for python with ROS + kinova Gen3
+- for python with ROS + kinova Gen3
 ```
 pip install scipy matplotlib rospkg
 ```
-Install [ros_kortex](https://github.com/Kinovarobotics/ros_kortex) and source it before running the project
+and install [ros_kortex](https://github.com/Kinovarobotics/ros_kortex) and source it before running the project
 ```
 source PATH/TO/CATKINWORKSPACE/WITH/ROS_KORTEX/devel/setup.bash
 ```
