@@ -7,6 +7,12 @@ IEEE Humanoids 2023 (under submission)
 
 Add videos 
 
+## Dependencies
+```
+pip install scipy
+```
+
+
 ## License 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
