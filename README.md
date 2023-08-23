@@ -25,6 +25,7 @@ source PATH/TO/CATKINWORKSPACE/WITH/ROS_KORTEX/devel/setup.bash
 ```
 
 ## Run
+choose your option
 ```
 python online|offline_polish_dataset|kinova.py
 ```
