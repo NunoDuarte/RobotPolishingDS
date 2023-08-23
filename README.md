@@ -7,10 +7,12 @@ IEEE Humanoids 2023 (under submission)
 
 Add videos 
 
-## Dependencies
+## Dependencies to run in python
 ```
-pip install scipy
+pip install scipy matplotlib
 ```
+
+## Dependencies to run in python on ROS + kinova Gen3
 
 
 ## License 
