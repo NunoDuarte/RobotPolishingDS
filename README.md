@@ -7,15 +7,16 @@ IEEE Humanoids 2023 (under submission)
 
 Add videos 
 
-## Dependencies to run in python on offline data
+## Dependencies 
+for python on offline data
 ```
 pip install scipy matplotlib
 ```
-## Dependencies to run in python with ROS to track hand in real-time
+for python with ROS to track hand in real-time
 ```
 pip install scipy matplotlib rospkg
 ```
-## Dependencies to run in python with ROS + kinova Gen3
+for python with ROS + kinova Gen3
 ```
 pip install scipy matplotlib rospkg
 ```
