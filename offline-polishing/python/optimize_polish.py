@@ -87,14 +87,15 @@ V = math.sin(popt[5]) * (1 / popt[3]) * xd_hat + math.cos(popt[5]) * (1 / popt[4
 
 # plotting the data
 fig = plt.figure(1)
+ax0 = fig.add_subplot()
+l1 = ax0.streamplot(X, Y, U, V, density=[2, 2])
+ax0.set_title('Limit Cycle')
+
 plt.plot(data[0], data[1], '.r', label='real trajectory')
 plt.xlabel('$x$')
 plt.ylabel('$y$')
 plt.plot()
 
-ax0 = fig.add_subplot()
-l1 = ax0.streamplot(X, Y, U, V, density=[2, 2])
-ax0.set_title('Limit Cycle')
 ax0.legend()
 plt.tight_layout()
 plt.show()
