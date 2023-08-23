@@ -125,23 +125,6 @@ class Mocap:
 
                         global r, theta_circle, r_dot, theta_circle_dot, Xdata
 
-                        # dt = 1 / 50
-                        # # remove last one
-                        # Xdata = [sub[:199] for sub in data]
-                        #
-                        # # Xdata = np.array(data)
-                        # Xvel = np.diff(data) / dt
-                        #
-                        # # convert to polar coordinates
-                        # r = np.sqrt(np.power(Xdata[0], 2) + np.power(Xdata[1], 2))
-                        # theta_circle = np.arctan2(Xdata[1], Xdata[0])
-                        #
-                        # # convert to polar velocity coordinates
-                        # r_dot = np.sum(Xdata * Xvel, axis=0) / np.sqrt(
-                        #     np.power(Xdata[0], 2) + np.power(Xdata[1], 2))  # param 1
-                        # theta_circle_dot = (Xvel[1] * Xdata[0] - Xdata[1] * Xvel[0]) / (
-                        #             np.power(Xdata[0], 2) + np.power(Xdata[1], 2))  # param 2
-
                         Xdata = [sub[:799] for sub in points]
                         # print('0', Xdata[0])
                         # print('1', Xdata[1])
