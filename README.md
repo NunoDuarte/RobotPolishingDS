@@ -6,10 +6,10 @@
 rejected at IEEE Humanoids 2023
 
 ## TODO
--[ ] Add videos
--[ ] Read reviews
--[ ] Work on 2nd derivate DS
--[ ] Update paper with reviewers comments
+- [ ] Add videos
+- [ ] Read reviews
+- [ ] Work on 2nd derivate DS
+- [ ] Update paper with reviewers comments
 
 ## Dependencies 
 - for python on offline data
