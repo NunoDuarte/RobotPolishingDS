@@ -8,10 +8,10 @@
 submitted to ICDL 2024
 
 ## TODO
-- [ ] Add videos
+- [x] Add video
 - [ ] Read reviews
-- [ ] Work on 2nd derivate DS
 - [ ] Update paper with reviewers comments
+- [ ] Work on 2nd derivate DS
 
 ## Dependencies 
 - for python on offline data
