@@ -37,11 +37,8 @@ choose your option
 python online|offline_polish_dataset|kinova.py
 ```
 
-## License 
+by Nuno Duarte
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-## Rights
-Nuno Duarte
 
 
 
