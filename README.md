@@ -9,8 +9,7 @@ submitted to ICDL 2024
 
 ## TODO
 - [x] Add video
-- [ ] Read reviews
-- [ ] Update paper with reviewers comments
+- [x] Read reviews
 - [ ] Work on 2nd derivate DS
 
 ## Dependencies 
