@@ -6,9 +6,9 @@ accepted as a poster at IEEE ICDL 2024
 [[<b> Youtube Video </b>](https://youtu.be/H2vTvLHJsqw)] 
 
 ## TODO
-- [x] Add video
-- [x] Read reviews
-- [ ] Work on 2nd derivate DS
+- [ ] DS with varying velocity (2nd derivate DS)
+- [ ] DS with geometrical coordinates
+- [ ] Better optimization solver (fmincon from MATLAB)
 
 ## Dependencies 
 - for python on offline data
